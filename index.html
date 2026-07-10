@@ -35,9 +35,12 @@
   .tag{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:.08em}
 
   .hero{padding:44px 0 10px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.28em;color:var(--mint);
+    display:block;margin-bottom:12px}
   .hero h1{font-size:clamp(26px,4.5vw,40px);font-weight:700;letter-spacing:-.01em;line-height:1.15}
   .hero h1 em{font-style:normal;color:var(--mint)}
-  .hero p{color:var(--muted);margin-top:10px;max-width:56ch}
+  .hero p{color:var(--muted);margin-top:12px;max-width:58ch}
+  .hero p b{color:var(--ink);font-weight:600}
   .cta-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
   .cta{font-family:var(--mono);font-size:13px;letter-spacing:.08em;font-weight:600;
     background:var(--mint);color:#06110C;border-radius:7px;padding:11px 18px;
@@ -127,10 +130,17 @@
 
 <main class="wrap">
   <section class="hero">
-    <h1>Not picks. <em>Proof.</em></h1>
-    <p>Cada jugada se publica antes del primer lanzamiento, con hora exacta y sello
-    criptográfico anclado en la blockchain de Bitcoin. El resultado lo asigna el marcador
-    oficial de MLB. Nada se edita. Nada se borra.</p>
+    <span class="kicker">NOT PICKS. PROOF.</span>
+    <h1>Apostamos MLB con investigación.<br>Esta es nuestra bitácora <em>pública.</em></h1>
+    <p>No adivinamos ni seguimos corazonadas: <b>estudiamos hacia dónde se mueve el dinero.</b>
+    Nuestra estrategia lee las oscilaciones de volumen del mercado — cuándo el público empuja
+    un precio más allá de lo que dicen los números — y solo jugamos cuando esa distancia
+    nos favorece.</p>
+    <p>Aquí se publica cada selección que hacemos: <b>el equipo al que apostamos que ganará
+    su juego</b>, escrito antes del primer lanzamiento con su hora y su precio. El resultado
+    lo pone el marcador oficial de la MLB — no nosotros. Y ganemos o perdamos, nada se
+    edita y nada se borra: cada entrada lleva un sello en la blockchain de Bitcoin que
+    lo garantiza.</p>
     <div class="cta-row">
       <a class="cta" href="https://t.me/+0DilCN5TSptmOTcx" target="_blank" rel="noopener">UNIRSE AL CANAL DE PICKS →</a>
       <a class="cta ghost" href="https://t.me/AranduResearchbot" target="_blank" rel="noopener">AUDITAR RÉCORD EN EL BOT</a>
@@ -152,7 +162,7 @@
 
   <section class="ledger">
     <div class="lhead">
-      <h2>LIBRO DE PICKS</h2>
+      <h2>BITÁCORA DE JUGADAS</h2>
       <span class="n" id="count"></span>
     </div>
     <div id="rows"></div>
@@ -281,7 +291,7 @@ const BADGE = {
 function drawRows(picks){
   const box = document.getElementById("rows");
   if(!picks.length){ box.innerHTML =
-    `<div class="empty">Sin picks en esta ventana. El registro crece con cada jugada publicada.</div>`; return; }
+    `<div class="empty">La bitácora está en cero: acaba de nacer. Cada jugada que publiquemos quedará escrita aquí, para siempre.</div>`; return; }
   box.innerHTML = [...picks].sort((a,b)=>b.ts.localeCompare(a.ts)).map(p=>{
     const [cls, txt] = BADGE[p.resultado] || ["b-a", p.resultado];
     const extra = p.resultado==="CERRADO" && typeof p.unidades_cierre==="number"
