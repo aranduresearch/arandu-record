@@ -327,10 +327,17 @@ document.querySelectorAll(".fbtn").forEach(b=>b.addEventListener("click",()=>{
 }));
 window.addEventListener("resize", ()=>drawEquity(ALL.filter(p=>enVentana(p,WIN))));
 
-fetch("picks.json", {cache:"no-store"})
-  .then(r => r.ok ? r.json() : Promise.reject())
-  .then(d => { ALL = d; render(); })
-  .catch(() => { ALL = DEMO; document.getElementById("demochip").style.display="inline-block"; render(); });
+function cargar(){
+  fetch("picks.json", {cache:"no-store"})
+    .then(r => r.ok ? r.json() : Promise.reject())
+    .then(d => { ALL = d; render(); })
+    .catch(() => { if(!ALL.length){ ALL = DEMO;
+      document.getElementById("demochip").style.display="inline-block"; render(); } });
+}
+cargar();
+/* terminal vivo: relee cada 60s y al volver a la pestana */
+setInterval(cargar, 60000);
+document.addEventListener("visibilitychange", () => { if(!document.hidden) cargar(); });
 </script>
 </body>
 </html>
